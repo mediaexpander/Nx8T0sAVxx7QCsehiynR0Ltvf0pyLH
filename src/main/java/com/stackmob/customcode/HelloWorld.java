@@ -58,7 +58,7 @@ public class HelloWorld implements CustomCodeMethod {
         String followers1 = request.getParams().get("followers");
         List<String> items = Arrays.asList(followers1.split("\\s*//\\s*"));
         
-        if (items.length==0){
+        if (items.isEmpty()==true){
             return Util.badRequestResponse(errMap);
         }
         
