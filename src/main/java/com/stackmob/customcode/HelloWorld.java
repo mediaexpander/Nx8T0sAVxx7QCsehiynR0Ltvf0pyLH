@@ -29,44 +29,22 @@ import java.util.Map;
 
 public class HelloWorld implements CustomCodeMethod {
 
+    
     @Override
     public String getMethodName() {
-        return "PUSH_Direct_Notification";
+        return "hello_world";
     }
     
     @Override
     public List<String> getParams() {
-        return Arrays.asList("user_name");
+        return new ArrayList<String>();
     }
     
     @Override
     public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
-        LoggerService logger = serviceProvider.getLoggerService(DirectPushNotification.class);
-        Map<String, String> errMap = new HashMap<String, String>();
-        
-        Map<String, String> payload = new HashMap<String, String>();
-        String user = request.getParams().get("user_name");
-        
-        if (Util.hasNulls(user)){
-            return Util.badRequestResponse(errMap);
-        }
-        
-        try {
-            PushService ps = serviceProvider.getPushService();
-            // Add data to your payload
-            payload.put("badge", "1");
-            payload.put("key1", "some data");
-            // Send the payload to the specified user
-            ps.sendPushToUsers(Arrays.asList(user),payload);
-            logger.debug("Sent push to " + user);
-            
-        } catch (ServiceNotActivatedException e){
-            return Util.internalErrorResponse("service not activated", e, errMap);
-        } catch (PushServiceException e){
-            return Util.internalErrorResponse("Push Service Exception", e, errMap);
-        }
-        
-        return new ResponseToProcess(HttpURLConnection.HTTP_OK, payload);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("msg", "Hello, world!");
+        return new ResponseToProcess(HttpURLConnection.HTTP_OK, map);
     }
     
 }
