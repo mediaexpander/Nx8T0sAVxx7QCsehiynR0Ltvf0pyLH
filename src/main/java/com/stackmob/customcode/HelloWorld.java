@@ -60,7 +60,7 @@ public class HelloWorld implements CustomCodeMethod {
           payload.put("badge", "1");
           payload.put("key1", "some data");
           // Send the payload to the specified user
-          ps.sendPushToUsers(followers,payload);
+          ps.sendPushToUsers(Arrays.asList("123456789"),payload);
           logger.debug("Sent push to " + followers);
           
       } catch (ServiceNotActivatedException e){
