@@ -56,9 +56,9 @@ public class HelloWorld implements CustomCodeMethod {
         Map<String, String> payload = new HashMap<String, String>();
         
         String followers1 = request.getParams().get("followers");
-        String[] followers = followers1.split("//");
+        List<String> items = Arrays.asList(followers1.split("\\s*,\\s*"));
         
-        if (Util.hasNulls(followers)){
+        if (Util.hasNulls(items)){
             return Util.badRequestResponse(errMap);
         }
         
@@ -68,7 +68,8 @@ public class HelloWorld implements CustomCodeMethod {
             payload.put("badge", "1");
             payload.put("key1", "some data");
             // Send the payload to the specified user
-            ps.sendPushToUsers(followers,payload);
+            
+            ps.sendPushToUsers(items,payload);
             logger.debug("Sent push to " + followers);
             
         } catch (ServiceNotActivatedException e){
