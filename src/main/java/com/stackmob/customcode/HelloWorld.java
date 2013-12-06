@@ -17,8 +17,6 @@
 package com.stackmob.customcode;
 
 import com.stackmob.core.customcode.CustomCodeMethod;
-import com.stackmob.core.rest.ProcessedAPIRequest;
-import com.stackmob.core.rest.ResponseToProcess;
 import com.stackmob.sdkapi.SDKServiceProvider;
 
 import java.net.HttpURLConnection;
@@ -26,6 +24,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.stackmob.core.PushServiceException;
+import com.stackmob.core.ServiceNotActivatedException;
+import com.stackmob.core.customcode.CustomCodeMethod;
+import com.stackmob.core.rest.ProcessedAPIRequest;
+import com.stackmob.core.rest.ResponseToProcess;
+import com.stackmob.example.Util;
+import com.stackmob.sdkapi.*;
+
+import java.net.HttpURLConnection;
+import java.util.*;
 
 public class HelloWorld implements CustomCodeMethod {
     
