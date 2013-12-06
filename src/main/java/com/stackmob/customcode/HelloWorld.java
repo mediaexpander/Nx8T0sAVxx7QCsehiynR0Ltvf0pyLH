@@ -34,10 +34,7 @@ public class HelloWorld implements CustomCodeMethod {
         return "hello_world";
     }
     
-    @Override
-    public List<String> getParams() {
-        return new ArrayList<String>();
-    }
+    
     
     @Override
     public List<String> getParams() {
@@ -46,9 +43,11 @@ public class HelloWorld implements CustomCodeMethod {
     
     @Override
     public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("msg", "Hello, world!");
-        return new ResponseToProcess(HttpURLConnection.HTTP_OK, map);
+        LoggerService logger = serviceProvider.getLoggerService(DirectPushNotification.class);
+        Map<String, String> errMap = new HashMap<String, String>();
+        
+        Map<String, String> payload = new HashMap<String, String>();
+        return new ResponseToProcess(HttpURLConnection.HTTP_OK, payload);
     }
     
 }
