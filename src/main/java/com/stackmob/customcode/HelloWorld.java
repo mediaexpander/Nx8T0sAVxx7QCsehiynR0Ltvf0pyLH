@@ -39,10 +39,8 @@ public class HelloWorld implements CustomCodeMethod {
     
     @Override
     public String getMethodName() {
-        return "hello_world";
+        return "SendPushToFollowers";
     }
-    
-    
     
     @Override
     public List<String> getParams() {
@@ -51,10 +49,34 @@ public class HelloWorld implements CustomCodeMethod {
     
     @Override
     public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
+        
         LoggerService logger = serviceProvider.getLoggerService(HelloWorld.class);
         Map<String, String> errMap = new HashMap<String, String>();
         
         Map<String, String> payload = new HashMap<String, String>();
+        
+        String followers1 = request.getParams().get("followers");
+        String[] followers = followers1.split("{");
+        
+        if (Util.hasNulls(followers)){
+            return Util.badRequestResponse(errMap);
+        }
+        
+        try {
+            PushService ps = serviceProvider.getPushService();
+            // Add data to your payload
+            payload.put("badge", "1");
+            payload.put("key1", "some data");
+            // Send the payload to the specified user
+            ps.sendPushToUsers(Arrays.asList(followers),payload);
+            logger.debug("Sent push to " + followers);
+            
+        } catch (ServiceNotActivatedException e){
+            return Util.internalErrorResponse("service not activated", e, errMap);
+        } catch (PushServiceException e){
+            return Util.internalErrorResponse("Push Service Exception", e, errMap);
+        }
+        
         return new ResponseToProcess(HttpURLConnection.HTTP_OK, payload);
     }
     
