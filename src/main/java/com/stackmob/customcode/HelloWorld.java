@@ -40,6 +40,11 @@ public class HelloWorld implements CustomCodeMethod {
     }
     
     @Override
+    public List<String> getParams() {
+        return Arrays.asList("followers");
+    }
+    
+    @Override
     public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("msg", "Hello, world!");
