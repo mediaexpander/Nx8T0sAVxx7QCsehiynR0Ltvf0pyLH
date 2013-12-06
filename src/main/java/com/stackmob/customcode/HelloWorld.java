@@ -51,7 +51,7 @@ public class HelloWorld implements CustomCodeMethod {
     
     @Override
     public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
-        LoggerService logger = serviceProvider.getLoggerService(DirectPushNotification.class);
+        LoggerService logger = serviceProvider.getLoggerService(HelloWorld.class);
         Map<String, String> errMap = new HashMap<String, String>();
         
         Map<String, String> payload = new HashMap<String, String>();
