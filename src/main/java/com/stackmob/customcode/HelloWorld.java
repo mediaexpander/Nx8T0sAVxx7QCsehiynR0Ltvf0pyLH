@@ -39,7 +39,7 @@ public class HelloWorld implements CustomCodeMethod {
     
     @Override
     public String getMethodName() {
-        return "SendPushToFollowers";
+        return "sendpushtofollowers";
     }
     
     @Override
