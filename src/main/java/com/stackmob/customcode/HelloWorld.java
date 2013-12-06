@@ -29,47 +29,44 @@ import java.util.Map;
 
 public class HelloWorld implements CustomCodeMethod {
 
-  @Override
-  public String getMethodName() {
-    return "SendPushToFollowers";
-  }
-
-  @Override
-  public List<String> getParams() {
-    return Arrays.asList("followers");
-  }
-
-  @Override
-  public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
+    @Override
+    public String getMethodName() {
+        return "PUSH_Direct_Notification";
+    }
     
-      LoggerService logger = serviceProvider.getLoggerService(DirectPushNotification.class);
-      Map<String, String> errMap = new HashMap<String, String>();
-      
-      Map<String, String> payload = new HashMap<String, String>();
-      
-      String followers1 = request.getParams().get("followers");
-      String[] followers = followers1.split("{");
-      
-      if (Util.hasNulls(followers)){
-          return Util.badRequestResponse(errMap);
-      }
-      
-      try {
-          PushService ps = serviceProvider.getPushService();
-          // Add data to your payload
-          payload.put("badge", "1");
-          payload.put("key1", "some data");
-          // Send the payload to the specified user
-          ps.sendPushToUsers(Arrays.asList("123456789"),payload);
-          logger.debug("Sent push to " + followers);
-          
-      } catch (ServiceNotActivatedException e){
-          return Util.internalErrorResponse("service not activated", e, errMap);
-      } catch (PushServiceException e){
-          return Util.internalErrorResponse("Push Service Exception", e, errMap);
-      }
-      
-      return new ResponseToProcess(HttpURLConnection.HTTP_OK, payload);
-  }
-
+    @Override
+    public List<String> getParams() {
+        return Arrays.asList("user_name");
+    }
+    
+    @Override
+    public ResponseToProcess execute(ProcessedAPIRequest request, SDKServiceProvider serviceProvider) {
+        LoggerService logger = serviceProvider.getLoggerService(DirectPushNotification.class);
+        Map<String, String> errMap = new HashMap<String, String>();
+        
+        Map<String, String> payload = new HashMap<String, String>();
+        String user = request.getParams().get("user_name");
+        
+        if (Util.hasNulls(user)){
+            return Util.badRequestResponse(errMap);
+        }
+        
+        try {
+            PushService ps = serviceProvider.getPushService();
+            // Add data to your payload
+            payload.put("badge", "1");
+            payload.put("key1", "some data");
+            // Send the payload to the specified user
+            ps.sendPushToUsers(Arrays.asList(user),payload);
+            logger.debug("Sent push to " + user);
+            
+        } catch (ServiceNotActivatedException e){
+            return Util.internalErrorResponse("service not activated", e, errMap);
+        } catch (PushServiceException e){
+            return Util.internalErrorResponse("Push Service Exception", e, errMap);
+        }
+        
+        return new ResponseToProcess(HttpURLConnection.HTTP_OK, payload);
+    }
+    
 }
