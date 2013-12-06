@@ -47,7 +47,8 @@ public class HelloWorld implements CustomCodeMethod {
       
       Map<String, String> payload = new HashMap<String, String>();
       
-      List<String> followers = request.getParams().get("followers");
+      String followers1 = request.getParams().get("followers");
+      String[] followers = followers1.split({);
       
       if (Util.hasNulls(followers)){
           return Util.badRequestResponse(errMap);
