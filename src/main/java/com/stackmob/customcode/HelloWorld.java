@@ -44,7 +44,7 @@ public class HelloWorld implements CustomCodeMethod {
     
     @Override
     public List<String> getParams() {
-        return Arrays.asList("followers");
+        return Arrays.asList("followers","name");
     }
     
     @Override
@@ -66,7 +66,8 @@ public class HelloWorld implements CustomCodeMethod {
             PushService ps = serviceProvider.getPushService();
             // Add data to your payload
             payload.put("badge", "1");
-            payload.put("alert", "some data");
+            payload.put("alert", "¡"+name+" tiene una nueva oferta para tí!");
+            payload.put("sound","default");
             // Send the payload to the specified user
             
             ps.sendPushToUsers(items,payload);
