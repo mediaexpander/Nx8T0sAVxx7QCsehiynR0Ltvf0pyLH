@@ -66,7 +66,7 @@ public class HelloWorld implements CustomCodeMethod {
             PushService ps = serviceProvider.getPushService();
             // Add data to your payload
             payload.put("badge", "1");
-            payload.put("key1", "some data");
+            payload.put("message", "some data");
             // Send the payload to the specified user
             
             ps.sendPushToUsers(items,payload);
